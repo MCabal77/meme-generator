@@ -23,7 +23,10 @@ function Meme() {
 
   const handleChange = function(event) {
     const { name, value } = event.target; 
-    setMeme(prevMeme )
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      [name]: value,
+    }))
   }
 
   const handleSubmit = function(event) {
@@ -55,7 +58,7 @@ function Meme() {
             type="text"
             placeholder="Bottom Text"
             name="bottomText"
-            value={bottomText}
+            value={meme.bottomText}
             onChange={handleChange}
           />
         </div>
@@ -69,11 +72,13 @@ function Meme() {
       </form>
       {/* Conditionally render the image */}
       {meme.randomImage && (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center relative">
           <img
             className=" rounded-sm aspect-video object-contain"
             src={meme.randomImage}
           />
+          <h3 className="caption top-2">{meme.topText}</h3>
+          <h3 className="caption bottom-2 ">{meme.bottomText}</h3>
         </div>
       )}
     </section>

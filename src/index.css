@@ -23,3 +23,9 @@
 .shadow-card { 
   box-shadow: 5px 5px 5px 1px rgba(120,120,120,0.44);
 }
+
+.caption {
+  @apply absolute text-white text-6xl font-bold;
+  -webkit-text-stroke: 2px black;
+  -webkit-text-fill-color: white;
+}
