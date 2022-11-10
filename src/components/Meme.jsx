@@ -11,15 +11,24 @@ function Meme() {
 
   const [allMemeData, setAllMemeData] = useState(memesData.data);
 
-  const getMemeImage = function () {
+  const getMemeImage = function() {
     const memesArray = allMemeData.memes;
     const randomUrl = memesArray[randomNum(0, memesArray.length - 1)].url;
     // Shallow copy our memes
-    setMeme((prevMemes) => ({
-      ...prevMemes,
+    setMeme((prevMeme) => ({
+      ...prevMeme,
       randomImage: randomUrl,
     }));
-  };
+  }
+
+  const handleChange = function(event) {
+    const { name, value } = event.target; 
+    setMeme(prevMeme )
+  }
+
+  const handleSubmit = function(event) {
+    event.preventDefault();
+  }
 
   function randomNum(inclusiveLower, inclusiveUpper) {
     return (
@@ -38,13 +47,17 @@ function Meme() {
             type="text"
             placeholder="Top Text"
             name="topText"
-          ></input>
+            value={meme.topText}
+            onChange={handleChange}
+          />
           <input
             className="input-form input-hover"
             type="text"
             placeholder="Bottom Text"
             name="bottomText"
-          ></input>
+            value={bottomText}
+            onChange={handleChange}
+          />
         </div>
         <button
           type="button"
@@ -60,7 +73,7 @@ function Meme() {
           <img
             className=" rounded-sm aspect-video object-contain"
             src={meme.randomImage}
-          ></img>
+          />
         </div>
       )}
     </section>
