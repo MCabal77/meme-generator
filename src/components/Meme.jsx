@@ -1,6 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import memesData from "../data/memes";
+import { useState, useEffect } from "react";
 
 function Meme() {
   const [meme, setMeme] = useState({
@@ -9,25 +8,34 @@ function Meme() {
     randomImage: "",
   });
 
-  const [allMemeData, setAllMemeData] = useState(memesData.data);
+  const [allMemeData, setAllMemeData] = useState([]);
 
-  const getMemeImage = function() {
-    const memesArray = allMemeData.memes;
-    const randomUrl = memesArray[randomNum(0, memesArray.length - 1)].url;
+  // Initial API request
+  useEffect(() => {
+    const getMemes = async function() {
+      const response = await fetch('https://api.imgflip.com/get_memes');
+      const memesApi = await response.json();
+      setAllMemeData(memesApi.data.memes);
+    }
+    getMemes();
+  }, []);
+
+  const getMemeImage = function () {
+    const randomUrl = allMemeData[randomNum(0, allMemeData.length - 1)].url;
     // Shallow copy our memes
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: randomUrl,
     }));
-  }
+  };
 
-  const handleChange = function(event) {
-    const { name, value } = event.target; 
+  const handleChange = function (event) {
+    const { name, value } = event.target;
     setMeme((prevMeme) => ({
       ...prevMeme,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   function randomNum(inclusiveLower, inclusiveUpper) {
     return (
@@ -52,7 +60,7 @@ function Meme() {
           <input
             className="input-form input-hover"
             type="text"
-            placeholder="Bottom Text"
+            placeholdger="Bottom Text"
             name="bottomText"
             value={meme.bottomText}
             onChange={handleChange}
@@ -79,6 +87,6 @@ function Meme() {
       )}
     </section>
   );
-} 
+}
 
 export default Meme;
