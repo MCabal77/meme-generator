@@ -29,10 +29,6 @@ function Meme() {
     }))
   }
 
-  const handleSubmit = function(event) {
-    event.preventDefault();
-  }
-
   function randomNum(inclusiveLower, inclusiveUpper) {
     return (
       Math.floor(Math.random() * (inclusiveUpper - inclusiveLower + 1)) +
@@ -83,6 +79,6 @@ function Meme() {
       )}
     </section>
   );
-}
+} 
 
 export default Meme;
